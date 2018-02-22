@@ -193,49 +193,49 @@ public class PtGen {
 			initialisations();
 			break;
 		case 1:
-			UtilLex.valNb;
+			int i = UtilLex.valNb;
 		case 10:
 			verifBool();
 		case 11:
-			produire(OU);
-			tcour = BOOL;
+			po.produire(OU);
+			tCour = BOOL;
 		case 12:
-			produire(ET);
-			tcour = BOOL;
+			po.produire(ET);
+			tCour = BOOL;
 		case 13:
-			produire(NON);
-			tcour = BOOL;
+			po.produire(NON);
+			tCour = BOOL;
 		case 14:
 			verifEnt();
 		case 15:
-			produire(EG);
+			po.produire(EG);
 		case 16:
-			produire(DIFF);
-			tcour = ENT;
+			po.produire(DIFF);
+			tCour = ENT;
 		case 17:
-			produire(SUP);
-			tcour = ENT;
+			po.produire(SUP);
+			tCour = ENT;
 		case 18:
-			produire(SUPEG);
-			tcour = ENT;
+			po.produire(SUPEG);
+			tCour = ENT;
 		case 19:
-			produire(INF);
-			tcour = ENT;
+			po.produire(INF);
+			tCour = ENT;
 		case 20:
-			produire(INFEG);
-			tcour = ENT;
+			po.produire(INFEG);
+			tCour = ENT;
 		case 21:
-			produire(ADD);
-			tcour = ENT;
+			po.produire(ADD);
+			tCour = ENT;
 		case 22:
-			produire(SOUS);
-			tcour = ENT;
+			po.produire(SOUS);
+			tCour = ENT;
 		case 23:
-			produire(MUL);
-			tcour = ENT;
+			po.produire(MUL);
+			tCour = ENT;
 		case 24:
-			produire(DIV);
-			tcour = ENT;
+			po.produire(DIV);
+			tCour = ENT;
 		default:
 			System.out
 					.println("Point de generation non prevu dans votre liste");
