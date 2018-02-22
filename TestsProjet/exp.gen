@@ -1,0 +1,17 @@
+FICHIER TestsProjet/exp.gen : 
+
+   1  reserver        4
+   3  empiler        13
+   5  affecterg       0
+   7  empiler        12
+   9  affecterg       1
+  11  lirent    
+  12  affecterg       1
+  14  lirent    
+  15  affecterg       2
+  17  lirent    
+  18  affecterg       3
+  20  empiler        13
+  22  ecrent    
+  23  contenug        0
+  25  ecrent    

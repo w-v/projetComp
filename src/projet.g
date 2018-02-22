@@ -64,14 +64,14 @@ specif  : ident  ( 'fixe' '(' type  ( ',' type  )* ')' )?
                  ( 'mod'  '(' type  ( ',' type  )* ')' )? 
   ;
   
-consts  : 'const'  ( ident  '=' valeur  ptvg  )+ 
+consts  : 'const'  ( ident  '=' valeur  {PtGen.pt(60);} ptvg  )+ 
   ;
   
-vars  : 'var' ( type ident  ( ','  ident  )* ptvg  )+
+vars  : 'var' {PtGen.pt(52);} ( type ident {PtGen.pt(53);} ( ','  ident {PtGen.pt(53);}  )* ptvg  )+ {PtGen.pt(54);}
   ;
   
-type  : 'ent'  
-  |     'bool' 
+type  : 'ent' {PtGen.pt(50);} 
+  |     'bool' {PtGen.pt(51);}
   ;
   
 decprocs: (decproc ptvg)+
@@ -84,7 +84,7 @@ ptvg  : ';'
   | 
   ;
   
-corps : 'debut' instructions 'fin'
+corps : 'debut' instructions 'fin' {PtGen.pt(1000);}
   ;
   
 parfixe: 'fixe' '(' pf ( ';' pf)* ')'
@@ -125,14 +125,14 @@ inscond : 'cond'  expression  ':' instructions
 boucle  : 'ttq'  expression 'faire' instructions 'fait' 
   ;
   
-lecture: 'lire' '(' ident  ( ',' ident  )* ')' 
+lecture: 'lire' '(' ident  {PtGen.pt(80);}( ',' ident  {PtGen.pt(80);})* ')' 
   ;
   
-ecriture: 'ecrire' '(' expression  ( ',' expression  )* ')'
+ecriture: 'ecrire' '(' expression  {PtGen.pt(81);} ( ',' expression  {PtGen.pt(81);})* ')'
    ;
   
 affouappel
-  : ident  (    ':=' expression 
+  : ident  {PtGen.pt(70);} (    ':=' expression {PtGen.pt(71);}
             |   (effixes (effmods)?)?  
            )
   ;
@@ -175,17 +175,18 @@ exp5  : primaire {PtGen.pt(14);}
         )*
   ;
   
-primaire: valeur 
-  | ident  
+primaire: valeur {PtGen.pt(5);}
+  | ident  {PtGen.pt(6);}
   | '(' expression ')'
   ;
   
-valeur  : nbentier 
-  | '+' nbentier 
-  | '-' nbentier 
-  | 'vrai' 
-  | 'faux' 
+valeur  : nbentier {PtGen.pt(1);}
+  | '+' nbentier {PtGen.pt(1);}
+  | '-' nbentier {PtGen.pt(2);}
+  | 'vrai' {PtGen.pt(3);}
+  | 'faux' {PtGen.pt(4);}
   ;
+
 
 // partie lexicale  : cette partie ne doit pas etre modifie  //
 // les unites lexicales de ANTLR doivent commencer par une majuscule
