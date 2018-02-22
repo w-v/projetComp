@@ -1,5 +1,6 @@
 
 import java.io.*;
+import java.util.Arrays;
 
 public class TPileRep {
 
@@ -20,10 +21,24 @@ public class TPileRep {
 		public int depiler() {
 		    if (ip==0) 
 			UtilLex.messErr("action depiler sur chaine de reprise vide ");
-		    ip=ip-1;return T[ip+1];
+		    //ip=ip-1;return T[ip+1];		// return T[ip--];
+		    								// ;)
+		    
+		    
+		    ////////////////ADDED BY ME////////////////////
+		    int a = T[ip];
+		    T[ip] = 0;
+		    ip--;
+		    return a;
+		    ///////////////////////////////////////////////
+
 		}
 		// constructeur
 		public TPileRep() {ip=0;}
+		
+		public String toString() {
+			return Arrays.toString(this.T);
+		}
     } // TpileRep
    
 

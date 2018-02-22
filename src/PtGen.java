@@ -245,11 +245,13 @@ public class PtGen {
 				case VARGLOBALE:
 					po.produire(CONTENUG);
 					break;
+
 				default:
 					UtilLex.messErr("Action non valide");
 					break;
 				}
 			}
+			tCour = tabSymb[vCour].type;
 			po.produire(tabSymb[vCour].info);
 			break;
 
@@ -278,23 +280,18 @@ public class PtGen {
 			break;
 		case 16:
 			po.produire(DIFF);
-			tCour = ENT;
 			break;
 		case 17:
 			po.produire(SUP);
-			tCour = ENT;
 			break;
 		case 18:
 			po.produire(SUPEG);
-			tCour = ENT;
 			break;
 		case 19:
 			po.produire(INF);
-			tCour = ENT;
 			break;
 		case 20:
 			po.produire(INFEG);
-			tCour = ENT;
 			break;
 		case 21:
 			po.produire(ADD);
@@ -311,6 +308,9 @@ public class PtGen {
 		case 24:
 			po.produire(DIV);
 			tCour = ENT;
+			break;
+		case 25:
+			tCour = BOOL;
 			break;
 
 			/* Déclarations */
@@ -427,8 +427,87 @@ public class PtGen {
 			}
 			break;
 
+			/* Conditions */
+
+			/* si */
+
+			// si
+		case 100:
+			verifBool();
+			po.produire(BSIFAUX);
+			//on met 0 en argument en attendant de savoir ou on branche
+			po.produire(0);
+			pileRep.empiler(po.getIpo());
+			break;
+
+			// sinon
+		case 101:
+			po.modifier(pileRep.depiler(), po.getIpo()+3);
+			po.produire(BINCOND);
+			//on met 0 en argument en attendant de savoir ou on branche
+			po.produire(0);
+			pileRep.empiler(po.getIpo());
+			break;
+
+			// fsi
+		case 102:
+			po.modifier(pileRep.depiler(), po.getIpo()+1);
+			break;
+
+			/* cond */
+			
+			// cond
+		case 120:
+			pileRep.empiler(0);
+			break;
+			
+			// exp : (bsifaux)
+		case 121:
+			verifBool();
+			po.produire(BSIFAUX);
+			//on met 0 en argument en attendant de savoir ou on branche
+			po.produire(0);
+			pileRep.empiler(po.getIpo());
+			System.out.println("121 "+pileRep.toString());
+			break;
+			
+			// , ou aut (bincond)
+		case 122:
+			po.modifier(pileRep.depiler(), po.getIpo()+3);
+			System.out.println("122_1 "+pileRep.toString());
+			po.produire(BINCOND);
+			po.produire(pileRep.depiler());
+			pileRep.empiler(po.getIpo());
+			System.out.println("122_2 "+pileRep.toString());
+			break;
+			
+			// fcond
+		case 123:
+			int fcond = po.getIpo()+1;
+			// last binc (-1)
+			int lbinc = pileRep.depiler();
+			// the one before (-2)
+			int tmp;
+			
+			while(lbinc != 0) {				// 0 n'est jamais dans la pile à fcond, ce while fait toujours au moins une iteration
+				tmp = po.getElt(lbinc);
+				po.modifier(lbinc, fcond);
+				lbinc = tmp;
+			}
+			break;
+			
+			// cas ou il n'y a pas de aut
+			// 	-> regler le dernier bsifaux a ipo+1
+			//	-> ne pas produire de bincond pour le dernier case
+		case 124:
+			po.modifier(pileRep.depiler(), po.getIpo()+1);
+			break;
+			
+			/* Boucle */
+
 			// fin
 		case 1000:
+			po.produire(ARRET);
 			afftabSymb();
 			po.constGen();
 			po.constObj();

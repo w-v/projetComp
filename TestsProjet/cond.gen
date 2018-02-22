@@ -1,0 +1,68 @@
+FICHIER TestsProjet/cond.gen : 
+
+   1  reserver        3
+   3  empiler         1
+   5  affecterg       0
+   7  empiler         1
+   9  affecterg       0
+  11  empiler         1
+  13  affecterg       0
+  15  empiler         1
+  17  affecterg       0
+  19  empiler         1
+  21  affecterg       0
+  23  empiler         1
+  25  affecterg       0
+  27  empiler         1
+  29  affecterg       0
+  31  empiler         1
+  33  affecterg       0
+  35  empiler         1
+  37  affecterg       0
+  39  empiler         1
+  41  affecterg       0
+  43  empiler         1
+  45  affecterg       0
+  47  empiler         1
+  49  affecterg       0
+  51  empiler         1
+  53  affecterg       0
+  55  empiler         1
+  57  affecterg       0
+  59  empiler         1
+  61  empiler         1
+  63  ou        
+  64  affecterg       0
+  66  lirebool  
+  67  affecterg       0
+  69  empiler         1
+  71  affecterg       0
+  73  empiler         1
+  75  affecterg       0
+  77  empiler         1
+  79  affecterg       0
+  81  empiler         1
+  83  affecterg       0
+  85  empiler         1
+  87  affecterg       0
+  89  empiler         1
+  91  affecterg       0
+  93  empiler         1
+  95  affecterg       0
+  97  empiler         1
+  99  affecterg       0
+ 101  contenug        0
+ 103  bsifaux       110
+ 105  empiler         1
+ 107  ecrent    
+ 108  bincond       126
+ 110  contenug        1
+ 112  bsifaux       119
+ 114  empiler         2
+ 116  ecrent    
+ 117  bincond       126
+ 119  contenug        2
+ 121  bsifaux       126
+ 123  empiler         3
+ 125  ecrent    
+ 126  arret     
