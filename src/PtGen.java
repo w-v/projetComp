@@ -504,6 +504,26 @@ public class PtGen {
 			break;
 			
 			/* Boucle */
+			
+			// ttq
+		case 140:
+			pileRep.empiler(po.getIpo()+1);
+			break;
+			
+			// exp
+		case 141:
+			verifBool();
+			po.produire(BSIFAUX);
+			//on met 0 en argument en attendant de savoir ou on branche
+			po.produire(0);
+			pileRep.empiler(po.getIpo());
+			break;
+
+		case 142:
+			po.modifier(pileRep.depiler(), po.getIpo()+3);
+			po.produire(BINCOND);
+			po.produire(pileRep.depiler());
+			break;
 
 			// fin
 		case 1000:
