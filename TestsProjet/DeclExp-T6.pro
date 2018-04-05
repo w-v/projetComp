@@ -6,7 +6,7 @@ var ent i,j;
 
 debut
 
-	i:= (x-min) div 2;
+	i:= (max-min) div 2;
 	b1:= oui et nenni;
 	b2:= non b1 et (oui ou nenni);
 	j:= (i+5)*10;

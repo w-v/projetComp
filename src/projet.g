@@ -6,6 +6,8 @@
 
 // attention l'analyse est poursuivie apres erreur si l'on supprime la clause rulecatch
 
+// ADILI ROBIN - LEBOULANGER HUGUES - TOMAS PABLO
+
 grammar projet;
 
 options {
@@ -34,19 +36,19 @@ import java.io.FileInputStream;
 catch (RecognitionException e) {reportError (e) ; throw e ; }}
 
 
-unite  :   unitprog  EOF
-      |    unitmodule  EOF
+unite  :   unitprog  {PtGen.pt(304);} EOF
+      |    unitmodule {PtGen.pt(304);}  EOF
   ;
   
 unitprog
-  : 'programme' ident ':'  
+  : 'programme' {PtGen.pt(301);} ident {PtGen.pt(303);}':'  
      declarations  
-     corps { System.out.println("succes, arret de la compilation "); }
-  ;
+     corps {PtGen.pt(1000);} { System.out.println("succes, arret de la compilation "); }
+  ;  
   
 unitmodule
-  : 'module' ident ':' 
-     declarations   
+  : 'module' {PtGen.pt(302);} ident {PtGen.pt(303);} ':' 
+     declarations { System.out.println("succes, arret de la compilation "); }
   ;
   
 declarations
@@ -54,14 +56,15 @@ declarations
   ;
   
 partiedef
-  : 'def' ident  (',' ident )* ptvg
+  : 'def' ident {PtGen.pt(300);} (',' ident {PtGen.pt(300);})* ptvg
   ;
   
-partieref: 'ref'  specif (',' specif)* ptvg
+partieref: 'ref'  specif {PtGen.pt(314);} (',' specif)* ptvg
   ;
   
-specif  : ident  ( 'fixe' '(' type  ( ',' type  )* ')' )? 
-                 ( 'mod'  '(' type  ( ',' type  )* ')' )? 
+specif  : ident {PtGen.pt(310);} 
+				 ( 'fixe' '(' type  {PtGen.pt(311);}{PtGen.pt(312);}( ',' type {PtGen.pt(311);}{PtGen.pt(312);} )* ')' )? 
+                 ( 'mod'  '(' type  {PtGen.pt(311);}{PtGen.pt(313);}( ',' type {PtGen.pt(311);}{PtGen.pt(313);} )* ')' )?
   ;
   
 consts  : 'const'  ( ident  '=' valeur  {PtGen.pt(60);} ptvg  )+ 
@@ -74,29 +77,29 @@ type  : 'ent' {PtGen.pt(50);}
   |     'bool' {PtGen.pt(51);}
   ;
   
-decprocs: (decproc ptvg)+
+decprocs: {PtGen.pt(198);}(decproc ptvg)+{PtGen.pt(199);}
   ;
   
-decproc :  'proc'  ident  parfixe? parmod? consts? vars? corps 
+decproc : 'proc'  ident {PtGen.pt(200);} parfixe? parmod? {PtGen.pt(203);} consts? vars? corps {PtGen.pt(210);}
   ;
   
 ptvg  : ';'
   | 
   ;
   
-corps : 'debut' instructions 'fin' {PtGen.pt(1000);}
+corps : 'debut' instructions 'fin' 
   ;
   
 parfixe: 'fixe' '(' pf ( ';' pf)* ')'
   ;
   
-pf  : type ident  ( ',' ident  )*  
+pf  : type ident {PtGen.pt(201);} ( ',' ident  {PtGen.pt(201);} )*  
   ;
 
 parmod  : 'mod' '(' pm ( ';' pm)* ')'
   ;
   
-pm  : type ident  ( ',' ident  )*
+pm  : type ident {PtGen.pt(202);} ( ',' ident {PtGen.pt(202);} )*
   ;
   
 instructions
@@ -122,7 +125,7 @@ inscond : 'cond' {PtGen.pt(120);}  expression {PtGen.pt(121);} ':' instructions
           'fcond' {PtGen.pt(123);}
   ;
   
-boucle  : 'ttq' {PtGen.pt(140)} expression {PtGen.pt(141)} 'faire' instructions 'fait' {PtGen.pt(142)}
+boucle  : 'ttq' {PtGen.pt(140);} expression {PtGen.pt(141);} 'faire' instructions 'fait' {PtGen.pt(142);}
   ;
   
 lecture: 'lire' '(' ident  {PtGen.pt(80);}( ',' ident  {PtGen.pt(80);})* ')' 
@@ -133,14 +136,14 @@ ecriture: 'ecrire' '(' expression  {PtGen.pt(81);} ( ',' expression  {PtGen.pt(8
   
 affouappel
   : ident  {PtGen.pt(70);} (    ':=' expression {PtGen.pt(71);}
-            |   (effixes (effmods)?)?  
+            |   (effixes (effmods)?)?{PtGen.pt(220);} 
            )
   ;
   
-effixes : '(' (expression  (',' expression  )*)? ')'
+effixes : '(' (expression  (',' expression )*)? ')'
   ;
   
-effmods :'(' (ident  (',' ident  )*)? ')'
+effmods :'(' (ident {PtGen.pt(215);} (',' ident {PtGen.pt(215);} )*)? ')'
   ; 
   
 expression: (exp1) ('ou' {PtGen.pt(10);} exp1 {PtGen.pt(10);} {PtGen.pt(11);})*
@@ -207,7 +210,8 @@ ID  :   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')* ;
 // zone purement lexicale //
 
 INT :   '0'..'9'+ ;
-WS  :   (' '|'\t' | '\n' |'\r')+ {skip();} ; // definition des "espaces"
+WS    :   (' '|'\t' |'\r')+ {skip();} ; // definition des "espaces"
+LIGNE :   '\n' {UtilLex.incrementeLigne();skip();};
 
 
 COMMENT
