@@ -1,0 +1,5 @@
+FICHIER premiertest.gen : 
+
+   1  reserver        5
+   3  empiler         4
+   5 code instruction incorrect : 0
